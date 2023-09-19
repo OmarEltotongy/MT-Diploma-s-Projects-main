@@ -1,0 +1,60 @@
+/*
+ ============================================================================
+ Name        : Omar_Eltoutongy_mini_project.c
+ Author      : Omar Eltoutongy
+ Version     :
+ Copyright   : Vehicle Control system from Omar Eltoutongy_
+ ============================================================================
+ */
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+void Vehicle_state(char option);
+
+int main(void)
+{	//for scanf
+	setvbuf(stdout, NULL, _IONBF, 0);
+	setvbuf(stderr, NULL, _IONBF, 0);
+
+	//Ask the user if he/she wants
+	printf("Please enter what u want:\nA. Turn on the vehicle engine.\n"
+			"B. Turn off the vehicle engine.\nC. Quit the system.\n");
+
+	char option=0;
+	scanf(" %c",&option);
+	option = toupper(option); //to check one condition only
+	//execute what he wants
+	Vehicle_state(option); //function to print state as it will be repeated
+	while(option !='C')
+	{
+		//for req3
+		if(option =='B')
+		{
+			printf("Please enter what u want:\nA. Turn on the vehicle engine.\n"
+			"B. Turn off the vehicle engine.\nC. Quit the system.\n");
+			scanf(" %c",&option);
+			option = toupper(option);
+			Vehicle_state(option);
+			if(option=='C')
+				break;  //breaking the loop if he wants to quit
+		}
+
+
+	}
+}
+void Vehicle_state(char option)
+{
+	if(option=='A')
+		{
+			printf("System State is: The vehicle engine is ON");
+		}
+		else if(option=='B')
+		{
+			printf("System State is: The vehicle engine is OFF");
+		}
+		else if(option=='C')
+		{
+			printf("System State is: Out  of system");
+		}
+}

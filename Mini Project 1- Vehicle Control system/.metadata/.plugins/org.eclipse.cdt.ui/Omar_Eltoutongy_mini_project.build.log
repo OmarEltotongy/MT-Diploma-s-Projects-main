@@ -1,0 +1,7 @@
+20:13:39 **** Incremental Build of configuration Debug for project Omar_Eltoutongy_mini_project ****
+Info: Internal Builder is used for build
+gcc -O0 -g3 -Wall -c -fmessage-length=0 -o "src\\Omar_Eltoutongy_mini_project.o" "..\\src\\Omar_Eltoutongy_mini_project.c" 
+gcc -o Omar_Eltoutongy_mini_project.exe "src\\Omar_Eltoutongy_mini_project.o" 
+
+20:13:39 Build Finished. 0 errors, 0 warnings. (took 610ms)
+
