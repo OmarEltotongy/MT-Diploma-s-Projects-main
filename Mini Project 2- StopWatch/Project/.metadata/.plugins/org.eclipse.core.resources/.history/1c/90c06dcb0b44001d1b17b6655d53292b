@@ -1,0 +1,11 @@
+/*
+ * ADC_Driver.c
+ *
+ *  Created on: Oct 4, 2022
+ *      Author: omare
+ */
+#include "common_macros.h"
+#include "lcd.h"
+#include "gpio.h"
+
+

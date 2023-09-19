@@ -1,0 +1,109 @@
+/*
+ * Application.c
+ *
+ *  Created on: Oct 8, 2022
+ *      Author: Omar Eltoutongy
+ */
+
+//pwm from timer 0
+
+#include <avr/io.h>
+#include "adc.h"
+#include "lcd.h"
+#include "lm35_sensor.h"
+
+void display(uint8 temp)
+{
+	LCD_moveCursor(0,7);
+	if(temp >= 100)
+	{
+		LCD_intgerToString(temp);
+	}
+	else
+	{
+		LCD_intgerToString(temp);
+		/* In case the digital value is two or one digits print space in the next digit place */
+		LCD_displayCharacter(' ');
+	}
+}
+
+int main(void)
+{
+	uint8 temp;
+	LCD_init(); /* initialize LCD driver */
+	ADC_ConfigType ADC_app={INTERNAL_AREF,DF_08};
+	ADC_init(&ADC_app);
+	/* Display this string "Temp =   C" only once on LCD at the first row */
+	LCD_displayString("Temp =    C");
+
+	for(;;)
+	{
+		temp = LM35_getTemperature();
+		display(temp);
+		/* Display the temperature value every time at same position */
+		LCD_moveCursor(0,7);
+		if(temp >= 100)
+		{
+			if(temp >= 100 && temp <120)
+			{
+
+				LCD_intgerToString(temp);
+
+				LCD_moveCursor(1,0);
+				LCD_displayString("Fan is On");
+				//fan on 75%
+
+			}
+			else if (temp >= 120 )
+			{
+				LCD_intgerToString(temp);
+				DcMotor_Rotate(CW_ROTATION,100);
+				LCD_moveCursor(1,0);
+				LCD_displayString("Fan is On");
+
+			}
+
+		}
+		else
+		{
+
+			if(temp<30)
+			{
+				display(temp);
+				DcMotor_Rotate(NO_ROTATION,0);
+				LCD_moveCursor(1,0);
+				LCD_displayString("Fan is Off");
+
+			}
+			else if(temp >= 30 && temp <60)
+			{
+
+				display(temp);
+				LCD_moveCursor(1,0);
+				DcMotor_Rotate(CW_ROTATION,25);
+				LCD_displayString("Fan is On");
+
+			}
+
+			else if(temp >= 60 && temp <90)
+			{
+
+				display(temp);
+				DcMotor_Rotate(CW_ROTATION,50);
+				LCD_moveCursor(1,0);
+				LCD_displayString("Fan is On");
+
+			}
+			else if(temp >= 90 && temp <100)
+			{
+				display(temp);
+				DcMotor_Rotate(CW_ROTATION,75);
+				LCD_moveCursor(1,0);
+				LCD_displayString("Fan is On");
+
+
+			}
+		}
+
+	}
+}
